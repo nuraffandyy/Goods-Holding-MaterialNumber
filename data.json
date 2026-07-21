@@ -1,1 +1,14 @@
-
+[
+  {
+    "Product": "70012345",
+    "Description": "Bearing SKF 6205",
+    "StorageBin": "A-01-03",
+    "Quantity": 15
+  },
+  {
+    "Product": "70056789",
+    "Description": "Hydraulic Hose",
+    "StorageBin": "B-02-01",
+    "Quantity": 8
+  }
+]
