@@ -1,1 +1,649 @@
+/* ===================================
+   Warehouse Locator v2.0
+   Part 1
+=================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+    background:#f4f7fb;
+    color:#333;
+    min-height:100vh;
+}
+
+/* Navbar */
+
+.navbar{
+    background:linear-gradient(90deg,#0d6efd,#0b5ed7)!important;
+}
+
+.navbar-brand{
+    font-size:1.35rem;
+    font-weight:700;
+}
+
+#darkModeBtn{
+    border-radius:12px;
+}
+
+/* Hero */
+
+.hero-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.hero-card h2{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.hero-card p{
+    color:#666;
+    margin-bottom:25px;
+}
+
+/* Search */
+
+.search-area{
+    position:relative;
+}
+
+.search-area input{
+    border-radius:16px;
+    padding:16px 22px;
+    border:2px solid #dee2e6;
+    transition:.3s;
+    font-size:1.1rem;
+}
+
+.search-area input:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .25rem rgba(13,110,253,.15);
+}
+
+/* Autocomplete */
+
+.autocomplete-box{
+    position:absolute;
+    width:100%;
+    background:#fff;
+    border-radius:12px;
+    margin-top:5px;
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+    z-index:1000;
+    overflow:hidden;
+    display:none;
+}
+
+.autocomplete-item{
+    padding:12px 16px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.autocomplete-item:hover{
+    background:#eef5ff;
+}
+
+/* Dashboard */
+
+.dashboard-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,.07);
+    transition:.25s;
+    height:100%;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-4px);
+}
+
+.dashboard-card .icon{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    background:#eaf3ff;
+}
+
+.dashboard-card h6{
+    color:#777;
+    margin-bottom:6px;
+    font-size:.9rem;
+}
+
+.dashboard-card h2,
+.dashboard-card h5{
+    margin:0;
+    font-weight:700;
+}
+
+/* Filter */
+
+.filter-card{
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,.07);
+}
+
+.filter-card .form-select{
+    border-radius:12px;
+    min-height:48px;
+}
+
+.filter-card .btn{
+    border-radius:12px;
+    min-height:48px;
+}
+
+/* Result Area */
+
+#resultContainer{
+    margin-top:20px;
+}
+
+.empty-card{
+    background:#fff;
+    border-radius:20px;
+    padding:50px;
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.07);
+    color:#6c757d;
+}
+
+.empty-card i{
+    color:#0d6efd;
+}
+
+/* ===================================
+   Warehouse Locator v2.0
+   Part 2
+=================================== */
+
+/* ===========================
+   Material Result Card
+=========================== */
+
+.result-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    transition:all .25s ease;
+    border-left:5px solid #0d6efd;
+}
+
+.result-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+.result-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.material-number{
+    font-size:1.35rem;
+    font-weight:700;
+    color:#0d6efd;
+}
+
+.material-desc{
+    color:#6c757d;
+    margin-top:4px;
+    font-size:.95rem;
+}
+
+/* ===========================
+   Information Grid
+=========================== */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:15px;
+}
+
+.info-box{
+    background:#f8f9fa;
+    border-radius:14px;
+    padding:15px;
+}
+
+.info-title{
+    font-size:.82rem;
+    color:#6c757d;
+    margin-bottom:6px;
+    text-transform:uppercase;
+    font-weight:600;
+}
+
+.info-value{
+    font-size:1rem;
+    font-weight:600;
+    color:#212529;
+    word-break:break-word;
+}
+
+/* ===========================
+   Quantity Badge
+=========================== */
+
+.qty-badge{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:.85rem;
+    font-weight:600;
+}
+
+.qty-green{
+    background:#d1e7dd;
+    color:#146c43;
+}
+
+.qty-red{
+    background:#f8d7da;
+    color:#b02a37;
+}
+
+.qty-yellow{
+    background:#fff3cd;
+    color:#997404;
+}
+
+/* ===========================
+   Action Buttons
+=========================== */
+
+.action-buttons{
+    margin-top:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.copy-btn,
+.detail-btn,
+.favorite-btn{
+    border:none;
+    border-radius:10px;
+    padding:10px 18px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.25s;
+}
+
+.copy-btn{
+    background:#0d6efd;
+    color:white;
+}
+
+.copy-btn:hover{
+    background:#0b5ed7;
+}
+
+.detail-btn{
+    background:#198754;
+    color:white;
+}
+
+.detail-btn:hover{
+    background:#157347;
+}
+
+.favorite-btn{
+    background:#ffc107;
+    color:#212529;
+}
+
+.favorite-btn:hover{
+    background:#ffca2c;
+}
+
+/* ===========================
+   Storage Bin List
+=========================== */
+
+.storage-list{
+    margin-top:18px;
+}
+
+.storage-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#eef5ff;
+    border-radius:12px;
+    padding:12px 15px;
+    margin-bottom:10px;
+}
+
+.storage-bin{
+    font-weight:700;
+    color:#0d6efd;
+}
+
+.storage-type{
+    color:#6c757d;
+    font-size:.9rem;
+}
+
+/* ===========================
+   Modal
+=========================== */
+
+.modal-content{
+    border:none;
+    border-radius:18px;
+}
+
+.modal-header{
+    background:#0d6efd;
+    color:white;
+}
+
+.modal-title{
+    font-weight:700;
+}
+
+.modal-body{
+    padding:25px;
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+    color:#6c757d;
+    font-size:.9rem;
+}
+
+footer hr{
+    opacity:.15;
+}
+
+/* ===========================
+   Utility
+=========================== */
+
+.text-small{
+    font-size:.85rem;
+}
+
+.shadow-soft{
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.rounded-xl{
+    border-radius:18px;
+}
+
+/* ===================================
+   Warehouse Locator v2.0
+   Part 3
+=================================== */
+
+/* ===========================
+   Dark Mode
+=========================== */
+
+body.dark-mode{
+    background:#121212;
+    color:#f1f1f1;
+    transition:.3s;
+}
+
+body.dark-mode .hero-card,
+body.dark-mode .dashboard-card,
+body.dark-mode .filter-card,
+body.dark-mode .result-card,
+body.dark-mode .empty-card,
+body.dark-mode .modal-content{
+    background:#1f1f1f;
+    color:#f1f1f1;
+}
+
+body.dark-mode .info-box{
+    background:#2b2b2b;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select{
+    background:#2a2a2a;
+    color:#ffffff;
+    border-color:#555;
+}
+
+body.dark-mode .form-control::placeholder{
+    color:#bbbbbb;
+}
+
+body.dark-mode .material-desc,
+body.dark-mode .info-title,
+body.dark-mode footer{
+    color:#bdbdbd;
+}
+
+body.dark-mode .storage-item{
+    background:#2d3a4a;
+}
+
+/* ===========================
+   Animation
+=========================== */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.result-card,
+.dashboard-card,
+.hero-card{
+    animation:fadeIn .4s ease;
+}
+
+/* Loading Spinner */
+
+.loading{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.spinner{
+    width:45px;
+    height:45px;
+    border:5px solid #dee2e6;
+    border-top:5px solid #0d6efd;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* ===========================
+   Button Animation
+=========================== */
+
+button{
+    transition:.25s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#ececec;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#0d6efd;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#0b5ed7;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:992px){
+
+    .hero-card{
+        padding:28px;
+    }
+
+    .dashboard-card{
+        margin-bottom:18px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero-card h2{
+        font-size:1.5rem;
+    }
+
+    .hero-card p{
+        font-size:.9rem;
+    }
+
+    .dashboard-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .dashboard-card .icon{
+        margin-bottom:10px;
+    }
+
+    .result-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+    .copy-btn,
+    .detail-btn,
+    .favorite-btn{
+        width:100%;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .container{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .hero-card{
+        padding:22px;
+    }
+
+    .search-area input{
+        font-size:1rem;
+    }
+
+    .material-number{
+        font-size:1.1rem;
+    }
+
+}
+
+/* ===========================
+   Print
+=========================== */
+
+@media print{
+
+    nav,
+    footer,
+    .action-buttons,
+    #darkModeBtn{
+        display:none;
+    }
+
+    body{
+        background:white;
+    }
+
+    .result-card{
+        box-shadow:none;
+        border:1px solid #ddd;
+    }
+
+}
 
