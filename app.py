@@ -1,3 +1,4 @@
+import pandas as pd
 from flask import Flask, render_template
 
 app = Flask(_name_)
@@ -12,3 +13,5 @@ def admin():
 
 if _name_ == '_main_':
     app.run(debug=True)
+app = Flask (__name__)
+data = None
