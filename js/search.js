@@ -1,172 +1,146 @@
-// ===================================
-// Warehouse Locator v2.0
+// =======================================
+// Warehouse Material Locator
 // search.js
-// ===================================
+// =======================================
 
-const searchInput = document.getElementById("searchInput");
-const resultContainer = document.getElementById("resultContainer");
+const input = document.getElementById("searchInput");
 
-// Event pencarian
-searchInput.addEventListener("input", function () {
+const btnSearch = document.getElementById("searchBtn");
 
-    const keyword = this.value.trim().toLowerCase();
+const btnClear = document.getElementById("clearBtn");
 
-    if (keyword === "") {
+const storageFilter = document.getElementById("storageFilter");
 
-        resultContainer.innerHTML = `
-            <div class="empty-card">
-                <h5>Silakan cari Material Number</h5>
-            </div>
-        `;
-        return;
+const tbody = document.getElementById("resultBody");
+
+// Search button
+
+btnSearch.onclick = search;
+
+// Enter
+
+input.addEventListener("keypress", function(e){
+
+    if(e.key==="Enter"){
+
+        search();
+
     }
-
-    searchMaterial(keyword);
 
 });
 
-// Cari material
-function searchMaterial(keyword){
+// Filter
 
-    const result = warehouseData.filter(item =>
+storageFilter.onchange = search;
 
-        item["Product"].toLowerCase().includes(keyword) ||
+// Clear
 
-        item["Product Description"].toLowerCase().includes(keyword) ||
+btnClear.onclick=function(){
 
-        item["Storage Bin"].toLowerCase().includes(keyword)
+    input.value="";
 
-    );
+    storageFilter.value="";
+
+    tbody.innerHTML="";
+
+}
+
+// Search
+
+function search(){
+
+    let keyword=input.value.toLowerCase().trim();
+
+    let storage=storageFilter.value;
+
+    let result=warehouseData.filter(item=>{
+
+        let match=
+
+        item["Product"].toLowerCase().includes(keyword)
+
+        ||
+
+        item["Product Description"].toLowerCase().includes(keyword)
+
+        ||
+
+        item["Storage Bin"].toLowerCase().includes(keyword);
+
+        if(storage!=""){
+
+            match=match && item["Storage Type"]==storage;
+
+        }
+
+        return match;
+
+    });
 
     showResult(result);
 
 }
 
-// Tampilkan hasil
+// Table
+
 function showResult(data){
 
-    if(data.length===0){
+    tbody.innerHTML="";
 
-        resultContainer.innerHTML=`
-        <div class="empty-card">
+    if(data.length==0){
 
-            <h4>Tidak ada data ditemukan</h4>
+        tbody.innerHTML=
 
-        </div>`;
+        "<tr><td colspan='7'>No data found.</td></tr>";
 
         return;
 
     }
 
-    let html="";
-
     data.forEach(item=>{
 
-        html+=`
+        tbody.innerHTML+=`
 
-        <div class="result-card">
+<tr>
 
-            <div class="result-header">
+<td>${item["Product"]}</td>
 
-                <div>
+<td>${item["Product Description"]}</td>
 
-                    <div class="material-number">
+<td>${item["Storage Type"]}</td>
 
-                        ${item["Product"]}
+<td>${item["Storage Bin"]}</td>
 
-                    </div>
+<td>${item["Quantity"]}</td>
 
-                    <div class="material-desc">
+<td>${item["Base Unit of Measure"]}</td>
 
-                        ${item["Product Description"]}
+<td>
 
-                    </div>
+<button class="copy-btn"
 
-                </div>
+onclick="copyBin('${item["Storage Bin"]}')">
 
-            </div>
+Copy
 
-            <div class="info-grid">
+</button>
 
-                <div class="info-box">
+</td>
 
-                    <div class="info-title">
+</tr>
 
-                        Storage Type
-
-                    </div>
-
-                    <div class="info-value">
-
-                        ${item["Storage Type"]}
-
-                    </div>
-
-                </div>
-
-                <div class="info-box">
-
-                    <div class="info-title">
-
-                        Storage Bin
-
-                    </div>
-
-                    <div class="info-value">
-
-                        ${item["Storage Bin"]}
-
-                    </div>
-
-                </div>
-
-                <div class="info-box">
-
-                    <div class="info-title">
-
-                        Quantity
-
-                    </div>
-
-                    <div class="info-value">
-
-                        ${item["Quantity"]} ${item["Base Unit of Measure"]}
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="action-buttons">
-
-                <button
-
-                    class="copy-btn"
-
-                    onclick="copyBin('${item["Storage Bin"]}')">
-
-                    📋 Copy Bin
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
+`;
 
     });
 
-    resultContainer.innerHTML=html;
-
 }
 
-// Copy Storage Bin
+// Copy
+
 function copyBin(bin){
 
     navigator.clipboard.writeText(bin);
 
-    alert("Storage Bin berhasil disalin : " + bin);
+    alert("Storage Bin disalin : "+bin);
 
 }
