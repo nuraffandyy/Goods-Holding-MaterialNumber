@@ -1,1 +1,18 @@
-
+[
+  {
+    "Product":"7001700204",
+    "Product Description":"Adapter Pipe",
+    "Storage Type":"WHR0",
+    "Storage Bin":"7510000041",
+    "Quantity":2,
+    "Base Unit of Measure":"EA"
+  },
+  {
+    "Product":"7001700204",
+    "Product Description":"Adapter Pipe",
+    "Storage Type":"WHR1",
+    "Storage Bin":"7510000042",
+    "Quantity":5,
+    "Base Unit of Measure":"EA"
+  }
+]
