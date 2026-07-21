@@ -115,17 +115,7 @@ function showResult(data){
 
 <td>${item["Base Unit of Measure"]}</td>
 
-<td>
-
-<button class="copy-btn"
-
-onclick="copyBin('${item["Storage Bin"]}')">
-
-Copy
-
-</button>
-
-</td>
+<td>${item["Stock Reference Doc."] || "-"}</td>
 
 </tr>
 
