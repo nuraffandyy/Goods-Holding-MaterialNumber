@@ -1,4 +1,4 @@
-const CACHE_NAME = "warehouse-locator-v1";
+const CACHE_NAME = "warehouse-locator-v2";
 
 const FILES_TO_CACHE = [
     "./",
