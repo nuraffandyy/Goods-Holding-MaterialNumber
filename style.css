@@ -1,3 +1,8 @@
+/* ===================================
+   Warehouse Locator v2.0
+   Part 1
+=================================== */
+
 *{
     margin:0;
     padding:0;
@@ -168,6 +173,15 @@ body{
     color:#0d6efd;
 }
 
+/* ===================================
+   Warehouse Locator v2.0
+   Part 2
+=================================== */
+
+/* ===========================
+   Material Result Card
+=========================== */
+
 .result-card{
     background:#ffffff;
     border-radius:18px;
@@ -203,6 +217,10 @@ body{
     font-size:.95rem;
 }
 
+/* ===========================
+   Information Grid
+=========================== */
+
 .info-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -231,6 +249,10 @@ body{
     word-break:break-word;
 }
 
+/* ===========================
+   Quantity Badge
+=========================== */
+
 .qty-badge{
     display:inline-block;
     padding:6px 14px;
@@ -253,6 +275,10 @@ body{
     background:#fff3cd;
     color:#997404;
 }
+
+/* ===========================
+   Action Buttons
+=========================== */
 
 .action-buttons{
     margin-top:20px;
@@ -299,6 +325,10 @@ body{
     background:#ffca2c;
 }
 
+/* ===========================
+   Storage Bin List
+=========================== */
+
 .storage-list{
     margin-top:18px;
 }
@@ -323,6 +353,10 @@ body{
     font-size:.9rem;
 }
 
+/* ===========================
+   Modal
+=========================== */
+
 .modal-content{
     border:none;
     border-radius:18px;
@@ -341,6 +375,10 @@ body{
     padding:25px;
 }
 
+/* ===========================
+   Footer
+=========================== */
+
 footer{
     color:#6c757d;
     font-size:.9rem;
@@ -349,6 +387,10 @@ footer{
 footer hr{
     opacity:.15;
 }
+
+/* ===========================
+   Utility
+=========================== */
 
 .text-small{
     font-size:.85rem;
@@ -361,6 +403,15 @@ footer hr{
 .rounded-xl{
     border-radius:18px;
 }
+
+/* ===================================
+   Warehouse Locator v2.0
+   Part 3
+=================================== */
+
+/* ===========================
+   Dark Mode
+=========================== */
 
 body.dark-mode{
     background:#121212;
@@ -403,7 +454,13 @@ body.dark-mode .storage-item{
     background:#2d3a4a;
 }
 
-from{
+/* ===========================
+   Animation
+=========================== */
+
+@keyframes fadeIn{
+
+    from{
         opacity:0;
         transform:translateY(15px);
     }
@@ -450,6 +507,11 @@ from{
     }
 
 }
+
+/* ===========================
+   Button Animation
+=========================== */
+
 button{
     transition:.25s;
 }
@@ -461,6 +523,10 @@ button:hover{
 button:active{
     transform:scale(.96);
 }
+
+/* ===========================
+   Scrollbar
+=========================== */
 
 ::-webkit-scrollbar{
     width:10px;
@@ -478,6 +544,10 @@ button:active{
 ::-webkit-scrollbar-thumb:hover{
     background:#0b5ed7;
 }
+
+/* ===========================
+   Responsive
+=========================== */
 
 @media(max-width:992px){
 
@@ -552,7 +622,14 @@ button:active{
     }
 
 }
- nav,
+
+/* ===========================
+   Print
+=========================== */
+
+@media print{
+
+    nav,
     footer,
     .action-buttons,
     #darkModeBtn{
