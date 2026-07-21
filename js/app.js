@@ -1,11 +1,11 @@
-// ====================================
-// Warehouse Locator v2.0
-// app.js Part 1
-// ====================================
+// =======================================
+// Warehouse Material Locator
+// app.js
+// =======================================
 
 let warehouseData = [];
+let filteredData = [];
 
-// Load data.json
 async function loadData() {
 
     try {
@@ -14,61 +14,42 @@ async function loadData() {
 
         warehouseData = await response.json();
 
-        updateDashboard();
+        filteredData = warehouseData;
 
-    } catch (error) {
+        loadStorageType();
 
-        console.error("Gagal membaca data.json", error);
+    } catch (err) {
+
+        alert("Gagal membaca data.json");
+
+        console.error(err);
 
     }
 
 }
 
-// Dashboard
-function updateDashboard() {
+function loadStorageType() {
 
-    document.getElementById("totalMaterial").innerText =
-        warehouseData.length.toLocaleString();
+    const select = document.getElementById("storageFilter");
 
-    const bins = new Set();
+    const list = [...new Set(
 
-    warehouseData.forEach(item => {
+        warehouseData.map(x => x["Storage Type"])
 
-        bins.add(item["Storage Bin"]);
+    )].sort();
+
+    list.forEach(item => {
+
+        const option = document.createElement("option");
+
+        option.value = item;
+
+        option.textContent = item;
+
+        select.appendChild(option);
 
     });
 
-    document.getElementById("totalBin").innerText =
-        bins.size.toLocaleString();
-
-    document.getElementById("lastUpdate").innerText =
-        new Date().toLocaleDateString("id-ID");
-
 }
-
-// Dark Mode
-
-const darkButton = document.getElementById("darkModeBtn");
-
-darkButton.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark-mode");
-
-    localStorage.setItem(
-        "darkmode",
-        document.body.classList.contains("dark-mode")
-    );
-
-});
-
-// Load Dark Mode
-
-if(localStorage.getItem("darkmode") === "true"){
-
-    document.body.classList.add("dark-mode");
-
-}
-
-// Jalankan aplikasi
 
 loadData();
