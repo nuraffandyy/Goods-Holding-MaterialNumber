@@ -1,7 +1,7 @@
-/* ===================================
-   Warehouse Locator v2.0
-   Part 1
-=================================== */
+/* ==========================================
+   Warehouse Material Locator
+   SAP Style
+========================================== */
 
 *{
     margin:0;
@@ -10,640 +10,198 @@
 }
 
 body{
-    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
-    background:#f4f7fb;
-    color:#333;
-    min-height:100vh;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f5f6f7;
+    color:#32363a;
 }
 
-/* Navbar */
+/* Header */
 
-.navbar{
-    background:linear-gradient(90deg,#0d6efd,#0b5ed7)!important;
+.header{
+    background:#0a6ed1;
+    color:white;
+    padding:14px 24px;
+    font-size:22px;
+    font-weight:600;
+    box-shadow:0 2px 4px rgba(0,0,0,.15);
 }
 
-.navbar-brand{
-    font-size:1.35rem;
-    font-weight:700;
+/* Layout */
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:25px auto;
 }
 
-#darkModeBtn{
-    border-radius:12px;
+/* Panel */
+
+.search-panel,
+.result-panel{
+    background:white;
+    border:1px solid #d9d9d9;
+    margin-bottom:20px;
 }
 
-/* Hero */
-
-.hero-card{
-    background:#fff;
-    border-radius:20px;
-    padding:35px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+.search-panel h2{
+    background:#f7f7f7;
+    border-bottom:1px solid #d9d9d9;
+    padding:12px 18px;
+    font-size:18px;
 }
 
-.hero-card h2{
-    font-size:2rem;
-    font-weight:700;
-    margin-bottom:8px;
-}
-
-.hero-card p{
-    color:#666;
-    margin-bottom:25px;
+.panel-header{
+    background:#f7f7f7;
+    border-bottom:1px solid #d9d9d9;
+    padding:12px 18px;
+    font-weight:600;
 }
 
 /* Search */
 
-.search-area{
-    position:relative;
+.search-row{
+    display:flex;
+    gap:10px;
+    padding:20px;
+    flex-wrap:wrap;
 }
 
-.search-area input{
-    border-radius:16px;
-    padding:16px 22px;
-    border:2px solid #dee2e6;
-    transition:.3s;
-    font-size:1.1rem;
+.search-row input{
+    flex:1;
+    min-width:250px;
+    height:42px;
+    padding:10px;
+    border:1px solid #bfbfbf;
+    font-size:15px;
 }
 
-.search-area input:focus{
-    border-color:#0d6efd;
-    box-shadow:0 0 0 .25rem rgba(13,110,253,.15);
+.search-row input:focus{
+    outline:none;
+    border-color:#0a6ed1;
 }
 
-/* Autocomplete */
-
-.autocomplete-box{
-    position:absolute;
-    width:100%;
-    background:#fff;
-    border-radius:12px;
-    margin-top:5px;
-    box-shadow:0 6px 18px rgba(0,0,0,.15);
-    z-index:1000;
-    overflow:hidden;
-    display:none;
-}
-
-.autocomplete-item{
-    padding:12px 16px;
+.search-row button{
+    height:42px;
+    padding:0 20px;
+    border:none;
     cursor:pointer;
-    transition:.2s;
+    font-weight:600;
 }
 
-.autocomplete-item:hover{
-    background:#eef5ff;
+#searchBtn{
+    background:#0a6ed1;
+    color:white;
 }
 
-/* Dashboard */
-
-.dashboard-card{
-    background:#fff;
-    border-radius:18px;
-    padding:22px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    box-shadow:0 6px 20px rgba(0,0,0,.07);
-    transition:.25s;
-    height:100%;
+#searchBtn:hover{
+    background:#085caf;
 }
 
-.dashboard-card:hover{
-    transform:translateY(-4px);
+#clearBtn{
+    background:#e0e0e0;
 }
 
-.dashboard-card .icon{
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:28px;
-    background:#eaf3ff;
-}
-
-.dashboard-card h6{
-    color:#777;
-    margin-bottom:6px;
-    font-size:.9rem;
-}
-
-.dashboard-card h2,
-.dashboard-card h5{
-    margin:0;
-    font-weight:700;
+#clearBtn:hover{
+    background:#cfcfcf;
 }
 
 /* Filter */
 
-.filter-card{
-    background:#fff;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 6px 20px rgba(0,0,0,.07);
+.filter-row{
+    padding:0 20px 20px;
 }
 
-.filter-card .form-select{
-    border-radius:12px;
-    min-height:48px;
-}
-
-.filter-card .btn{
-    border-radius:12px;
-    min-height:48px;
-}
-
-/* Result Area */
-
-#resultContainer{
-    margin-top:20px;
-}
-
-.empty-card{
-    background:#fff;
-    border-radius:20px;
-    padding:50px;
-    text-align:center;
-    box-shadow:0 6px 20px rgba(0,0,0,.07);
-    color:#6c757d;
-}
-
-.empty-card i{
-    color:#0d6efd;
-}
-
-/* ===================================
-   Warehouse Locator v2.0
-   Part 2
-=================================== */
-
-/* ===========================
-   Material Result Card
-=========================== */
-
-.result-card{
-    background:#ffffff;
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
-    transition:all .25s ease;
-    border-left:5px solid #0d6efd;
-}
-
-.result-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 28px rgba(0,0,0,.12);
-}
-
-.result-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-}
-
-.material-number{
-    font-size:1.35rem;
-    font-weight:700;
-    color:#0d6efd;
-}
-
-.material-desc{
-    color:#6c757d;
-    margin-top:4px;
-    font-size:.95rem;
-}
-
-/* ===========================
-   Information Grid
-=========================== */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    margin-top:15px;
-}
-
-.info-box{
-    background:#f8f9fa;
-    border-radius:14px;
-    padding:15px;
-}
-
-.info-title{
-    font-size:.82rem;
-    color:#6c757d;
-    margin-bottom:6px;
-    text-transform:uppercase;
+.filter-row label{
+    display:block;
+    margin-bottom:8px;
     font-weight:600;
 }
 
-.info-value{
-    font-size:1rem;
-    font-weight:600;
-    color:#212529;
-    word-break:break-word;
+.filter-row select{
+    width:250px;
+    height:40px;
+    border:1px solid #bfbfbf;
+    padding:8px;
 }
 
-/* ===========================
-   Quantity Badge
-=========================== */
+/* Table */
 
-.qty-badge{
-    display:inline-block;
-    padding:6px 14px;
-    border-radius:30px;
-    font-size:.85rem;
-    font-weight:600;
+#resultTable{
+    width:100%;
+    border-collapse:collapse;
 }
 
-.qty-green{
-    background:#d1e7dd;
-    color:#146c43;
+#resultTable thead{
+    background:#edf3f8;
 }
 
-.qty-red{
-    background:#f8d7da;
-    color:#b02a37;
+#resultTable th{
+    padding:12px;
+    border:1px solid #d9d9d9;
+    text-align:left;
+    font-size:14px;
 }
 
-.qty-yellow{
-    background:#fff3cd;
-    color:#997404;
+#resultTable td{
+    padding:10px;
+    border:1px solid #e5e5e5;
+    font-size:14px;
 }
 
-/* ===========================
-   Action Buttons
-=========================== */
-
-.action-buttons{
-    margin-top:20px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+#resultTable tbody tr:hover{
+    background:#f5f9fd;
 }
 
-.copy-btn,
-.detail-btn,
-.favorite-btn{
-    border:none;
-    border-radius:10px;
-    padding:10px 18px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.25s;
-}
+/* Copy Button */
 
 .copy-btn{
-    background:#0d6efd;
+    background:#0a6ed1;
     color:white;
+    border:none;
+    padding:6px 12px;
+    cursor:pointer;
+    border-radius:3px;
 }
 
 .copy-btn:hover{
-    background:#0b5ed7;
+    background:#085caf;
 }
 
-.detail-btn{
-    background:#198754;
-    color:white;
-}
+/* Empty */
 
-.detail-btn:hover{
-    background:#157347;
-}
-
-.favorite-btn{
-    background:#ffc107;
-    color:#212529;
-}
-
-.favorite-btn:hover{
-    background:#ffca2c;
-}
-
-/* ===========================
-   Storage Bin List
-=========================== */
-
-.storage-list{
-    margin-top:18px;
-}
-
-.storage-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#eef5ff;
-    border-radius:12px;
-    padding:12px 15px;
-    margin-bottom:10px;
-}
-
-.storage-bin{
-    font-weight:700;
-    color:#0d6efd;
-}
-
-.storage-type{
-    color:#6c757d;
-    font-size:.9rem;
-}
-
-/* ===========================
-   Modal
-=========================== */
-
-.modal-content{
-    border:none;
-    border-radius:18px;
-}
-
-.modal-header{
-    background:#0d6efd;
-    color:white;
-}
-
-.modal-title{
-    font-weight:700;
-}
-
-.modal-body{
+.empty-message{
     padding:25px;
+    text-align:center;
+    color:#666;
 }
 
-/* ===========================
-   Footer
-=========================== */
+/* Footer */
 
 footer{
-    color:#6c757d;
-    font-size:.9rem;
+    text-align:center;
+    padding:20px;
+    color:#666;
+    font-size:13px;
 }
 
-footer hr{
-    opacity:.15;
-}
-
-/* ===========================
-   Utility
-=========================== */
-
-.text-small{
-    font-size:.85rem;
-}
-
-.shadow-soft{
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.rounded-xl{
-    border-radius:18px;
-}
-
-/* ===================================
-   Warehouse Locator v2.0
-   Part 3
-=================================== */
-
-/* ===========================
-   Dark Mode
-=========================== */
-
-body.dark-mode{
-    background:#121212;
-    color:#f1f1f1;
-    transition:.3s;
-}
-
-body.dark-mode .hero-card,
-body.dark-mode .dashboard-card,
-body.dark-mode .filter-card,
-body.dark-mode .result-card,
-body.dark-mode .empty-card,
-body.dark-mode .modal-content{
-    background:#1f1f1f;
-    color:#f1f1f1;
-}
-
-body.dark-mode .info-box{
-    background:#2b2b2b;
-}
-
-body.dark-mode .form-control,
-body.dark-mode .form-select{
-    background:#2a2a2a;
-    color:#ffffff;
-    border-color:#555;
-}
-
-body.dark-mode .form-control::placeholder{
-    color:#bbbbbb;
-}
-
-body.dark-mode .material-desc,
-body.dark-mode .info-title,
-body.dark-mode footer{
-    color:#bdbdbd;
-}
-
-body.dark-mode .storage-item{
-    background:#2d3a4a;
-}
-
-/* ===========================
-   Animation
-=========================== */
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-.result-card,
-.dashboard-card,
-.hero-card{
-    animation:fadeIn .4s ease;
-}
-
-/* Loading Spinner */
-
-.loading{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:40px;
-}
-
-.spinner{
-    width:45px;
-    height:45px;
-    border:5px solid #dee2e6;
-    border-top:5px solid #0d6efd;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-
-    from{
-        transform:rotate(0deg);
-    }
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-/* ===========================
-   Button Animation
-=========================== */
-
-button{
-    transition:.25s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-}
-
-button:active{
-    transform:scale(.96);
-}
-
-/* ===========================
-   Scrollbar
-=========================== */
-
-::-webkit-scrollbar{
-    width:10px;
-}
-
-::-webkit-scrollbar-track{
-    background:#ececec;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#0d6efd;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background:#0b5ed7;
-}
-
-/* ===========================
-   Responsive
-=========================== */
-
-@media(max-width:992px){
-
-    .hero-card{
-        padding:28px;
-    }
-
-    .dashboard-card{
-        margin-bottom:18px;
-    }
-
-}
+/* Mobile */
 
 @media(max-width:768px){
 
-    .hero-card h2{
-        font-size:1.5rem;
-    }
-
-    .hero-card p{
-        font-size:.9rem;
-    }
-
-    .dashboard-card{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .dashboard-card .icon{
-        margin-bottom:10px;
-    }
-
-    .result-header{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
-    }
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-    .action-buttons{
+    .search-row{
         flex-direction:column;
     }
 
-    .copy-btn,
-    .detail-btn,
-    .favorite-btn{
+    .search-row input,
+    .search-row button,
+    .filter-row select{
         width:100%;
     }
 
-}
-
-@media(max-width:576px){
-
-    .container{
-        padding-left:14px;
-        padding-right:14px;
-    }
-
-    .hero-card{
-        padding:22px;
-    }
-
-    .search-area input{
-        font-size:1rem;
-    }
-
-    .material-number{
-        font-size:1.1rem;
+    #resultTable{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
     }
 
 }
-
-/* ===========================
-   Print
-=========================== */
-
-@media print{
-
-    nav,
-    footer,
-    .action-buttons,
-    #darkModeBtn{
-        display:none;
-    }
-
-    body{
-        background:white;
-    }
-
-    .result-card{
-        box-shadow:none;
-        border:1px solid #ddd;
-    }
-
-}
-
